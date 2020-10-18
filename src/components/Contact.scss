@@ -1,0 +1,32 @@
+.contact {
+    position: relative;
+    display: inline-flex;
+    padding: 1rem;
+    border-bottom: 1px solid #F9F9F9;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.contact__name {
+    font-size: 1rem;
+    color: black;
+    margin: 0;
+}
+
+.contact__description {
+    font-size: 0.8rem;
+    color: gray;
+    margin: 0;
+}
+
+.contact__time {
+    font-size: 0.8rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+    color: gray;
+    margin: 0;
+}
