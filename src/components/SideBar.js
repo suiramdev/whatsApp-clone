@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './SideBar.scss';
-import Contact from './Contact';
+import 'components/SideBar.scss';
+import Contact from 'components/Contact';
 import { Avatar } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ChatIcon from '@material-ui/icons/Chat';

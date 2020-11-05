@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Contact.scss';
+import 'components/Contact.scss';
 import { Avatar } from '@material-ui/core';
 
 class Contact extends Component {

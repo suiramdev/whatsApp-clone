@@ -1,0 +1,42 @@
+.form {
+    min-width: 40%;
+    min-height: 50%;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #89FBAB;
+}
+
+.form__input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem;
+    height: 15px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.form__input input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.form__input select {
+    -webkit-appearance: none;
+    width: 50px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    &::after {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        width: 2px;
+        height: 2px;
+        background-color: black;
+    }
+}

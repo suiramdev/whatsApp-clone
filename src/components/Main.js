@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Main.scss';
+import 'components/Main.scss';
 import { Avatar } from '@material-ui/core';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded';

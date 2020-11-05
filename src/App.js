@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import './App.scss';
-import SideBar from './SideBar';
-import Main from './Main';
+import LogIn from 'screens/LogIn';
+import Logged from 'screens/Logged';
 
+const isLogged = false;
 class App extends Component {
-    state = {  }
     render() { 
         return (
             <div className="app">
-                <SideBar />
-                <Main />
+                {isLogged ? <Logged /> : <LogIn />}
             </div>
         );
     }
