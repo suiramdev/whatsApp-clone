@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Register.scss';
 import { AlternateEmail, Lock, Phone, WhatsApp } from '@material-ui/icons';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { firebase } from 'services/firebase';
 
 class Register extends Component {
     render() {

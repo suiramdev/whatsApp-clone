@@ -23,12 +23,55 @@
 .main__chat {
     height: 100%;
     background: url("~images/patterns/email-pattern.png");
+    overflow-y: scroll;
+}
+
+.main__chat-message {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+
+    &.me {
+        flex-direction: row-reverse;
+
+        .main__chat-messageContent {
+            background-color: #e9e8e8;
+        }
+    }
+
+    .main__chat-messageContent {
+        max-width: 50%;
+        padding: 0.8rem;
+        margin: 0 1rem;
+        border-radius: 8px;
+        background-color: #89FBAB;
+    }
+
+    .main__chat-messageTime {
+        color: #e9e8e8;
+    }
+
+    p {
+        margin: 0;
+    }
 }
 
 .main__footer {
     display: inline-flex;
     background-color: #F3F3F3;
     padding: 1rem;
+
+    button {
+        all: unset;
+        color: gray;
+        transition: color 0.2s;
+    
+        &:hover {
+            cursor: pointer;
+            color: black;
+        }
+    }
 }
 
 .main__footer-entry {
@@ -38,22 +81,11 @@
     margin-right: 1rem;
     background-color: white;
     border-radius: 50px;
-}
 
-.main__footer-entry input {
-    width: 100%;
-    background: none;
-    border: none;
-    outline: none;
-}
-
-.main__footer button {
-    all: unset;
-    color: gray;
-    transition: color 0.2s;
-
-    &:hover {
-        cursor: pointer;
-        color: black;
+    input {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
     }
 }
