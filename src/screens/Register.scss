@@ -1,4 +1,4 @@
-.login {
+.register {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -6,40 +6,38 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    background-color: #78e098;
-}
+    background-color: white;
 
-.login__return {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-
-    svg {
-        font-size: 3rem !important;
-        color: white;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: url("~images/login-illustration.svg") no-repeat;
+        background-size: contain;
     }
 }
 
-.login__form {
+.register__form {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    right: 20%;
+    transform: translateY(-50%);
     width: 300px;
-    padding: 1.5rem 4rem;
-    border-radius: 8px;
-    background-color: white;
 }
 
-.login__form-logo {
+.register__form-logo {
     font-size: 4rem !important;
     margin: auto auto 2rem auto;
     color: #4DD889;
 }
 
-.login__form-input {
+.register__form-input {
     display: inline-flex;
     width: 100%;
     padding-bottom: 8px;
@@ -62,7 +60,7 @@
     }
 }
 
-.login__form-more {
+.register__form-more {
     text-align: right;
     font-size: 1rem;
     color: gray;
@@ -73,7 +71,7 @@
     }
 }
 
-.login__form-submit {
+.register__form-submit {
     position: relative;
     width: 100%;
     font-weight: bold;

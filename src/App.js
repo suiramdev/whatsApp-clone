@@ -1,14 +1,36 @@
 import React, { Component } from 'react';
 import './App.scss';
 import LogIn from 'screens/LogIn';
-import Logged from 'screens/Logged';
+import Root from 'screens/Root';
+import Register from 'screens/Register';
+import {
+    BrowserRouter as Router,
+    Route,
+    IndexRoute,
+    Switch,
+    Link
+} from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 const isLogged = false;
 class App extends Component {
     render() { 
         return (
             <div className="app">
-                {isLogged ? <Logged /> : <LogIn />}
+                <Router>
+                    <AnimatePresence>
+                        <Route path={"/"}>
+                            {isLogged ? (
+                                <Root />
+                            ) : (
+                                <>
+                                <Register />
+                                <Route path={"/login"} component={LogIn} />
+                                </>
+                            )}
+                        </Route>
+                    </AnimatePresence>
+                </Router>
             </div>
         );
     }
