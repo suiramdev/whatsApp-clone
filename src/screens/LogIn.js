@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 class LogIn extends Component {
     render() {
         return (
-            <motion.div className="login" initial={{x: -100+"vw"}} animate={{x: 0, transition: {duration: 1}}} exit={{x: -100+"vw"}}>
+            <motion.div className="login" initial={{x: -100+"vw"}} animate={{x: 0, transition: {duration: 1}}}>
                 <Link className="login__return" to="/"><ArrowBack /></Link>
                 <div className="login__form">
                     <WhatsApp className="login__form-logo"/>

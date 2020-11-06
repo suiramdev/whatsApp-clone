@@ -1,4 +1,4 @@
-import fb from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/functions';
 
@@ -13,4 +13,6 @@ const firebaseConfig = {
     measurementId: "G-93EWC01NLS"
 };
 
-export const firebase = fb.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+export default firebase;
