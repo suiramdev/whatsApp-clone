@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/whatsapp_clone/static/css/main.5740d1d2.chunk.css",
-    "main.js": "/whatsapp_clone/static/js/main.f23c9370.chunk.js",
-    "main.js.map": "/whatsapp_clone/static/js/main.f23c9370.chunk.js.map",
+    "main.css": "/whatsapp_clone/static/css/main.63b5e20d.chunk.css",
+    "main.js": "/whatsapp_clone/static/js/main.68c32490.chunk.js",
+    "main.js.map": "/whatsapp_clone/static/js/main.68c32490.chunk.js.map",
     "runtime-main.js": "/whatsapp_clone/static/js/runtime-main.094bb2fe.js",
     "runtime-main.js.map": "/whatsapp_clone/static/js/runtime-main.094bb2fe.js.map",
-    "static/js/2.0df1560d.chunk.js": "/whatsapp_clone/static/js/2.0df1560d.chunk.js",
-    "static/js/2.0df1560d.chunk.js.map": "/whatsapp_clone/static/js/2.0df1560d.chunk.js.map",
+    "static/js/2.adad958a.chunk.js": "/whatsapp_clone/static/js/2.adad958a.chunk.js",
+    "static/js/2.adad958a.chunk.js.map": "/whatsapp_clone/static/js/2.adad958a.chunk.js.map",
     "index.html": "/whatsapp_clone/index.html",
-    "precache-manifest.54f5c2384aad4ad8d680dbeb9142c4d2.js": "/whatsapp_clone/precache-manifest.54f5c2384aad4ad8d680dbeb9142c4d2.js",
+    "precache-manifest.2f5e8d7161ccb73911d1d4806e90dcf4.js": "/whatsapp_clone/precache-manifest.2f5e8d7161ccb73911d1d4806e90dcf4.js",
     "service-worker.js": "/whatsapp_clone/service-worker.js",
-    "static/css/main.5740d1d2.chunk.css.map": "/whatsapp_clone/static/css/main.5740d1d2.chunk.css.map",
-    "static/js/2.0df1560d.chunk.js.LICENSE.txt": "/whatsapp_clone/static/js/2.0df1560d.chunk.js.LICENSE.txt"
+    "static/css/main.63b5e20d.chunk.css.map": "/whatsapp_clone/static/css/main.63b5e20d.chunk.css.map",
+    "static/js/2.adad958a.chunk.js.LICENSE.txt": "/whatsapp_clone/static/js/2.adad958a.chunk.js.LICENSE.txt",
+    "static/media/Register.scss": "/whatsapp_clone/static/media/login-illustration.a0145796.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.094bb2fe.js",
-    "static/js/2.0df1560d.chunk.js",
-    "static/css/main.5740d1d2.chunk.css",
-    "static/js/main.f23c9370.chunk.js"
+    "static/js/2.adad958a.chunk.js",
+    "static/css/main.63b5e20d.chunk.css",
+    "static/js/main.68c32490.chunk.js"
   ]
 }
