@@ -8,13 +8,23 @@ import { AnimatePresence } from 'framer-motion';
 import firebase from 'services/firebase';
 
 class App extends Component {
+    state = {
+        user: null
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            this.setState({user: user});
+        }.bind(this));
+    }
+
     render() { 
         return (
             <div className="app">
                 <Router>
                     <AnimatePresence>
                         <Route path={"/"}>
-                        {firebase.auth().currentUser ? (
+                        {this.state.user ? (
                             <Root />
                         ) : (
                             <>

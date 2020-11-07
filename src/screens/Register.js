@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Register.scss';
-import { AlternateEmail, Lock, Phone, WhatsApp } from '@material-ui/icons';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { AlternateEmail, Lock, WhatsApp } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import firebase from 'services/firebase';
 
 class Register extends Component {
@@ -10,6 +10,8 @@ class Register extends Component {
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
         this.confirmPasswordInput = React.createRef();
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -24,27 +26,30 @@ class Register extends Component {
         window.recaptchaVerifier.render();
     }
     
-    submit() {
-        if (!window.captchaVerified) { return; }
+    handleSubmit(event) {
+        event.preventDefault();
+
+        if (!window.captchaVerified) { return; } // Captha non verified
         const emailInput = this.emailInput.current;
         const passwordInput = this.passwordInput.current;
         const confirmPasswordInput = this.confirmPasswordInput.current;
-        if (passwordInput.value != confirmPasswordInput.value) { return; }
+        if (passwordInput.value != confirmPasswordInput.value) { return; } // Confirm password incorrect
         
-        firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-
-            console.log(error.code + " : " + error.message);
+        firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+        .then(function() {
+            emailInput.value = "";
+            passwordInput.value = "";
+            confirmPasswordInput.value = "";
+        })
+        .catch(function(error) {
+            console.log(error.code + " : " + error.message); // Could not login
         });
     }
 
     render() {
         return (
             <div className="register">
-                <form className="register__form">
+                <form className="register__form" onSubmit={this.handleSubmit}>
                     <WhatsApp className="register__form-logo"/>
                     <div className="register__form-input">
                         <AlternateEmail />
@@ -60,7 +65,7 @@ class Register extends Component {
                     </div>
                     <Link className="register__form-more" to="/LogIn">I already have an account</Link>
                     <div id="recaptcha-container" style={{marginTop: 2+"rem"}}></div>
-                    <button className="register__form-submit" onClick={this.submit}>SIGN UP</button>
+                    <input className="register__form-submit" type="submit" value="SIGN UP" />
                 </form>
             </div>
         );

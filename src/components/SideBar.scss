@@ -18,18 +18,18 @@
 .sidebar__header-options {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     min-width: 100px;
-}
 
-.sidebar__header-options a {
-    color: white;
-    transition: transform 0.2s;
-}
+    a {
+        color: white;
+        transition: transform 0.2s;
 
-.sidebar__header-options a:hover {
-    cursor: pointer;
-    transform: scale(1.2);
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+    }
 }
 
 .sidebar__search {
@@ -46,23 +46,23 @@
     padding: 0.2rem 0.5rem;
     background-color: white;
     border-radius: 50px;
-}
 
-.sidebar__search-entry input {
-    width: 100%;
-    background: none;
-    border: none;
-    outline: none;
-}
+    input {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+    }
 
-.sidebar__search-entry button {
-    all: unset;
-    color: gray;
-    transition: color 0.2s;
-
-    &:hover {
-        cursor: pointer;
-        color: black;
+    button {
+        all: unset;
+        color: gray;
+        transition: color 0.2s;
+    
+        &:hover {
+            cursor: pointer;
+            color: black;
+        }
     }
 }
 

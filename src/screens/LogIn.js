@@ -10,15 +10,22 @@ class LogIn extends Component {
         super(props);
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    submit() {
-        firebase.auth().signInWithEmailAndPassword(this.emailInput.current.value, this.passwordInput.current.value).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
+    handleSubmit(event) {
+        event.preventDefault();
 
+        const emailInput = this.emailInput.current;
+        const passwordInput = this.passwordInput.current;
+
+        firebase.auth().signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+        .then(function() {
+            emailInput.value = "";
+            passwordInput.value = "";
+        })
+        .catch(function(error) {
             console.log(error.code + " : " + error.message);
         });
     }
@@ -27,7 +34,7 @@ class LogIn extends Component {
         return (
             <motion.div className="login" initial={{x: -100+"vw"}} animate={{x: 0, transition: {duration: 1}}}>
                 <Link className="login__return" to="/"><ArrowBack /></Link>
-                <div className="login__form">
+                <form className="login__form" onSubmit={this.handleSubmit}>
                     <WhatsApp className="login__form-logo"/>
                     <div className="login__form-input">
                         <AlternateEmail />
@@ -38,8 +45,8 @@ class LogIn extends Component {
                         <input ref={this.passwordInput} type="password" placeholder="Password" required></input>
                     </div>
                     <a className="login__form-more" href="#">Forgot password ?</a>
-                    <button className="login__form-submit" onClick={this.submit}>SIGN IN</button>
-                </div>
+                    <input className="login__form-submit" type="submit" value="SIGN IN" />
+                </form>
             </motion.div>
         );
     }
