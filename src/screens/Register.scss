@@ -24,16 +24,16 @@
 .register__form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     position: absolute;
-    top: 50%;
     right: 20%;
-    transform: translateY(-50%);
     width: 300px;
+    height: 100%;
 }
 
 .register__form-logo {
     font-size: 4rem !important;
-    margin: auto auto 2rem auto;
+    margin: 0 auto 1.5rem;
     color: #4DD889;
 }
 
@@ -42,11 +42,8 @@
     align-items: center;
     width: 100%;
     padding-bottom: 8px;
+    margin: 0.8rem 0;
     border-bottom: 2px solid gray;
-
-    &:not(:first-child) {
-        margin-top: 1.5rem;
-    }
 
     svg {
         margin-right: 0.5rem;
@@ -61,17 +58,6 @@
     }
 }
 
-.register__form-more {
-    text-align: right;
-    font-size: 1rem;
-    color: gray;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
 .register__form-submit {
     position: relative;
     width: 100%;
@@ -82,12 +68,25 @@
     border-radius: 20px;
     outline: none;
     border: none;
-    color: white;
     background-color: #4DD889;
+    color: white;
+    
+    transition: box-shadow 0.1s;
 
     &:hover {
         cursor: pointer;
-        background-color: #78e098;
-        transition: background-color 0.2s;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.register__form-more {
+    text-align: right;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: gray;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
     }
 }

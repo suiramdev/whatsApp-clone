@@ -33,21 +33,20 @@
     background-color: white;
 }
 
+
 .login__form-logo {
     font-size: 4rem !important;
-    margin: auto auto 2rem auto;
+    margin: 0 auto 1.5rem;
     color: #4DD889;
 }
 
 .login__form-input {
     display: inline-flex;
+    align-items: center;
     width: 100%;
+    margin: 0.8rem 0;
     padding-bottom: 8px;
     border-bottom: 2px solid gray;
-
-    &:not(:first-child) {
-        margin-top: 1.5rem;
-    }
 
     svg {
         margin-right: 0.5rem;
@@ -62,33 +61,35 @@
     }
 }
 
-.login__form-more {
-    text-align: right;
-    font-size: 1rem;
-    color: gray;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
 .login__form-submit {
     position: relative;
     width: 100%;
     font-weight: bold;
     font-size: 1rem;
     padding: 0.7rem;
-    margin-top: 3rem;
+    margin-top: 1rem;
     border-radius: 20px;
     outline: none;
     border: none;
-    color: white;
     background-color: #4DD889;
+    color: white;
+    
+    transition: box-shadow 0.1s;
 
     &:hover {
         cursor: pointer;
-        background-color: #78e098;
-        transition: background-color 0.2s;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.login__form-more {
+    text-align: right;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: gray;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
     }
 }
