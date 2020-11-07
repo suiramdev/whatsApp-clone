@@ -12,3 +12,30 @@ A communication tool such as What's APP in ReactJS on web.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details
+
+## Development note
+### Firestore database lookup
+```json
+{
+    "users": {
+        "userID": {
+            "email": "",
+            "username": ""
+        }
+    },
+
+    "conversations": {
+        "conversationID": {
+            "users": {
+                "1": "referenceUser"
+            },
+            "messages": {
+                "1": {
+                    "sender": "referenceUser",
+                    "text": "Hello world !",
+                    "time": "timestamp"
+                }
+            }
+        }
+    }
+}```
