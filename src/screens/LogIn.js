@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import './LogIn.scss';
-import { ArrowBack, Face, Lock, WhatsApp } from '@material-ui/icons';
+import { ArrowBack, AlternateEmail, Lock, WhatsApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import firebase from 'services/firebase';
 
 class LogIn extends Component {
+    constructor(props) {
+        super(props);
+        this.emailInput = React.createRef();
+        this.passwordInput = React.createRef();
+    }
+
+    submit() {
+        firebase.auth().signInWithEmailAndPassword(this.emailInput.current.value, this.passwordInput.current.value).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+
+            console.log(error.code + " : " + error.message);
+        });
+    }
+
     render() {
         return (
             <motion.div className="login" initial={{x: -100+"vw"}} animate={{x: 0, transition: {duration: 1}}}>
@@ -12,15 +30,15 @@ class LogIn extends Component {
                 <div className="login__form">
                     <WhatsApp className="login__form-logo"/>
                     <div className="login__form-input">
-                        <Face />
-                        <input type="text" placeholder="Phone or email" required></input>
+                        <AlternateEmail />
+                        <input ref={this.emailInput} type="text" placeholder="Email" required></input>
                     </div>
                     <div className="login__form-input">
                         <Lock />
-                        <input type="password" placeholder="Password" required></input>
+                        <input ref={this.passwordInput} type="password" placeholder="Password" required></input>
                     </div>
                     <a className="login__form-more" href="#">Forgot password ?</a>
-                    <button className="login__form-submit">SIGN IN</button>
+                    <button className="login__form-submit" onClick={this.submit}>SIGN IN</button>
                 </div>
             </motion.div>
         );

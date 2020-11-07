@@ -4,25 +4,40 @@ import { AlternateEmail, Lock, Phone, WhatsApp } from '@material-ui/icons';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import firebase from 'services/firebase';
 
-import ReactFlagsSelect from 'react-flags-select';
-//import css module
-import 'react-flags-select/css/react-flags-select.css';
-//OR import sass module
-import 'react-flags-select/scss/react-flags-select.scss';
-
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.emailInput = React.createRef();
+        this.passwordInput = React.createRef();
+        this.confirmPasswordInput = React.createRef();
+    }
+
     componentDidMount() {
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            'callback': (response) => {
+                window.captchaVerified = true;
+            },
+            'expired-callback': () => {
+                window.captchaVerified = false;
+            }
+        });
         window.recaptchaVerifier.render();
     }
     
     submit() {
-        var phoneNumber = "+33609663375";
-        firebase.auth().signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
-        .then(function (confirmationResult) {
-            console.log(confirmationResult);
-        }).catch(function (error) {
-            console.log(error);
+        if (!window.captchaVerified) { return; }
+        const emailInput = this.emailInput.current;
+        const passwordInput = this.passwordInput.current;
+        const confirmPasswordInput = this.confirmPasswordInput.current;
+        if (passwordInput.value != confirmPasswordInput.value) { return; }
+        
+        firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+
+            console.log(error.code + " : " + error.message);
         });
     }
 
@@ -33,18 +48,15 @@ class Register extends Component {
                     <WhatsApp className="register__form-logo"/>
                     <div className="register__form-input">
                         <AlternateEmail />
-                        <input type="email" placeholder="Email" required></input>
-                    </div>
-                    <div className="register__form-input">
-                        <Phone />
-                        <ReactFlagsSelect
-                        defaultCountry="FR" 
-                        countries={["US", "GB", "FR","DE","IT"]}
-                        customLabels={{"US": "EN-US","GB": "EN-GB","FR": "FR","DE": "DE","IT": "IT"}} />
+                        <input ref={this.emailInput} type="email" placeholder="Email" required></input>
                     </div>
                     <div className="register__form-input">
                         <Lock />
-                        <input type="password" placeholder="Password" required></input>
+                        <input ref={this.passwordInput} type="password" placeholder="Password" required></input>
+                    </div>
+                    <div className="register__form-input">
+                        <Lock />
+                        <input ref={this.confirmPasswordInput} type="password" placeholder="Confirm password" required></input>
                     </div>
                     <Link className="register__form-more" to="/LogIn">I already have an account</Link>
                     <div id="recaptcha-container" style={{marginTop: 2+"rem"}}></div>

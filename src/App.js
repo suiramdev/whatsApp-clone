@@ -5,8 +5,8 @@ import Root from 'screens/Root';
 import Register from 'screens/Register';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import firebase from 'services/firebase';
 
-const isLogged = false;
 class App extends Component {
     render() { 
         return (
@@ -14,7 +14,7 @@ class App extends Component {
                 <Router>
                     <AnimatePresence>
                         <Route path={"/"}>
-                        {isLogged ? (
+                        {firebase.auth().currentUser ? (
                             <Root />
                         ) : (
                             <>
