@@ -6,7 +6,7 @@ import Main from 'components/Main';
 class Logged extends Component {
     render() {
         return (
-            <div class="root">
+            <div className="root">
                 <SideBar />
                 <Main />
             </div>
