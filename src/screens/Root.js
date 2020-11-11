@@ -3,7 +3,7 @@ import './Root.scss';
 import SideBar from 'components/SideBar';
 import Main from 'components/Main';
 
-class Logged extends Component {
+class Root extends Component {
     render() {
         return (
             <div className="root">
@@ -14,4 +14,4 @@ class Logged extends Component {
     }
 }
 
-export default Logged;
+export default Root;

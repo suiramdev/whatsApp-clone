@@ -3,7 +3,8 @@ import 'components/SideBar.scss';
 import Contact from 'components/Contact';
 import { Avatar } from '@material-ui/core';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
-import { ExitToApp } from '@material-ui/icons';
+import { Add, ExitToApp } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import firebase from 'services/firebase';
 
 class SideBar extends Component {    
@@ -28,6 +29,9 @@ class SideBar extends Component {
                 </div>
                 <div className="sidebar__chats">
                     <Contact />
+                    <Link class="sidebar__chats-add" to="/new">
+                        <Add />
+                    </Link>
                 </div>
 			</div>
 		);
