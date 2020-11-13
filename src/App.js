@@ -3,7 +3,6 @@ import './App.scss';
 import Register from 'screens/Register';
 import LogIn from 'screens/LogIn';
 import Root from 'screens/Root';
-import NewContact from 'screens/root/NewContact';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import firebase from 'services/firebase';
@@ -28,7 +27,6 @@ class App extends Component {
                         {this.state.user ? (
                             <>
                             <Root />
-                            <Route path="/new" component={NewContact} />
                             </>
                         ) : (
                             <>

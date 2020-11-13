@@ -21,9 +21,6 @@ class Register extends Component {
     
     generateID() {
         let id = Math.floor(100000 + Math.random() * 900000);
-        if (firestore.collection('users').where('id', '==', id)) {
-            this.generateID();
-        }
 
         return id;
     }
@@ -44,13 +41,13 @@ class Register extends Component {
         firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
         .then(function() {
             this.setState({success: 'You have signed up successfully'});
-            
+
             firestore.collection('users').doc(firebase.auth().currentUser.uid).set({
                 username: usernameInput.value,
                 id: this.generateID(),
-                email: emailInput.value,
-                contacts: {}
+                email: emailInput.value
             });
+            console.log("no errors");
         }.bind(this))
         .catch(function(error) {
             this.setState({error: error.message});

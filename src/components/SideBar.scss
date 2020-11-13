@@ -10,9 +10,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 40px;
     padding: 1rem;
     background-color: #89FBAB;
     color: white;
+
+    a {
+        color: white;
+    }
 }
 
 .sidebar__header-options {
@@ -66,7 +71,7 @@
     }
 }
 
-.sidebar__chats {
+.sidebar__content {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -74,7 +79,7 @@
     background-color: white;
 }
 
-.sidebar__chats-add {
+.sidebar__content-option {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,6 +87,8 @@
     bottom: 1rem;
     right: 1rem;
     padding: 0.5rem;
+    border: none;
+    outline: none;
     border-radius: 50%;
     background-color: #ff3838;
     color: white;
@@ -91,5 +98,36 @@
     &:hover {
         transform: scale(1.2);
         cursor: pointer;
+    }
+}
+
+.sidebar__content-avatar {
+    width: 100px;;
+    height: 100px;
+    margin: 2rem auto;
+    div {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.sidebar__content-input {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    margin: 0.8rem auto;
+    padding-bottom: 8px;
+    border-bottom: 2px solid gray;
+
+    svg {
+        margin-right: 0.5rem;
+        color: gray;
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
     }
 }
