@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import 'components/SideBar.scss';
+import ContactList from 'components/ContactList';
+//#region Icons
 import { Alert } from '@material-ui/lab';
-import Contact from 'components/Contact';
 import { Avatar } from '@material-ui/core';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import { Add, ArrowBack, ExitToApp, Save, Face, Dialpad } from '@material-ui/icons';
+//#endregion
 import { Route, Link, Switch } from 'react-router-dom';
 import firebase, { firestore } from 'services/firebase';
 
@@ -18,6 +20,23 @@ class SideBar extends Component {
         this.newContactID = React.createRef();
 
         this.newContact = this.newContact.bind(this);
+        this.state = {
+            contacts: []
+        }
+    }
+
+    componentDidMount() {
+        let contacts = [];
+        firestore.collection("users").doc(firebase.auth().currentUser.uid).collection("contacts").get()
+            .then(function(querySnapshot) {
+                console.log(querySnapshot.docs);
+                querySnapshot.forEach(function(doc) {
+                    contacts.push(doc.data());
+                });
+            });
+        this.setState({
+            contacts: contacts
+        });
     }
 
     disconnect() {
@@ -55,15 +74,7 @@ class SideBar extends Component {
         }.bind(this));
     }
 
-	render() { 
-        let contacts = []
-        firestore.collection("users").doc(firebase.auth().currentUser.uid).collection("contacts").get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                contacts.push(<div><Contact /></div>);
-            });
-        });
-
+	render() {
 		return (
 			<div className="sidebar">
                 <Switch>
@@ -108,7 +119,7 @@ class SideBar extends Component {
                             </div>
                         </div>
                         <div className="sidebar__content">
-                            {contacts}
+                            <ContactList contacts={this.state.contacts} />
                             <Link className="sidebar__content-option" to="/new">
                                 <Add />
                             </Link>
