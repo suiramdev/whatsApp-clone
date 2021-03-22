@@ -5,7 +5,7 @@ class ContactList extends Component {
     render() {
         return (
             <>
-            {this.props.contacts.map(<Contact />)}
+            {this.props.contacts.map(() => <Contact />)}
             </>
         );
     }
