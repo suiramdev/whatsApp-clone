@@ -26,7 +26,10 @@
     justify-content: flex-end;
     min-width: 100px;
 
-    a {
+    button {
+        background: none;
+        border: none;
+        outline: none;
         color: white;
         transition: transform 0.2s;
 

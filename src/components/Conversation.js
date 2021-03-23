@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import 'components/Main.scss';
+import 'components/Conversation.scss';
 import { Avatar } from '@material-ui/core';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVerySatisfiedRounded';
+import firebase, {firestore} from "../services/firebase";
 
-class Main extends Component {
-    state = {  }
+class Conversation extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            contact: [],
+            conversation: []
+        }
+    }
+
+    componentDidMount() {
+        firestore.collection("users").doc(firebase.auth().currentUser.uid).collection("contacts")
+            .doc(this.props.match.params.uid).get()
+            .then(function(querySnapshot) {
+                this.setState({
+                    contact: querySnapshot.docs[0].data()
+                });
+            }.bind(this));
+    }
+
     render() { 
         return (
             <div className="main">
                 <div className="main__header">
                     <Avatar />
-                    <h1 className="main__header-title">Contact name</h1>
+                    <h1 className="main__header-title">{this.state.contact.name || "New contact"}</h1>
                 </div>
                 <div className="main__chat">
                     <div className="main__chat-message">
@@ -38,7 +57,7 @@ class Main extends Component {
                 </div>
                 <div className="main__footer">
                     <div className="main__footer-entry">
-                        <input type="text" placeholder="Type your message"></input>
+                        <input type="text" placeholder="Type your message" />
                         <button><SentimentVerySatisfiedRoundedIcon /></button>
                     </div>
                     <button><SendRoundedIcon /></button>
@@ -48,4 +67,4 @@ class Main extends Component {
     }
 }
  
-export default Main;
+export default Conversation;

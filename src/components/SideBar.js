@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import 'components/SideBar.scss';
-import ContactList from 'components/ContactList';
 //#region Icons
 import { Alert } from '@material-ui/lab';
 import { Avatar } from '@material-ui/core';
-import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import { Add, ArrowBack, ExitToApp, Save, Face, Dialpad } from '@material-ui/icons';
 //#endregion
 import { Route, Link, Switch } from 'react-router-dom';
 import firebase, { firestore } from 'services/firebase';
+import Contact from "./Contact";
 
 class SideBar extends Component {
     state = {}
@@ -18,25 +17,26 @@ class SideBar extends Component {
 
         this.newContactName = React.createRef();
         this.newContactID = React.createRef();
+        this.searchBar = React.createRef();
 
         this.newContact = this.newContact.bind(this);
+        this.searchContact = this.searchContact.bind(this);
         this.state = {
             contacts: []
         }
     }
 
     componentDidMount() {
-        let contacts = [];
         firestore.collection("users").doc(firebase.auth().currentUser.uid).collection("contacts").get()
             .then(function(querySnapshot) {
-                console.log(querySnapshot.docs);
+                let contacts = [];
                 querySnapshot.forEach(function(doc) {
                     contacts.push(doc.data());
                 });
-            });
-        this.setState({
-            contacts: contacts
-        });
+                this.setState({
+                    contacts: contacts
+                });
+            }.bind(this));
     }
 
     disconnect() {
@@ -52,7 +52,7 @@ class SideBar extends Component {
         firestore.collection("users").where("id", "==", parseInt(contactID)).get()
         .then(function(querySnapshot) {
             if (!querySnapshot.empty) {
-                if (querySnapshot.docs[0].id == firebase.auth().currentUser.uid) {
+                if (querySnapshot.docs[0].id === firebase.auth().currentUser.uid) {
                     this.setState({error: 'You can\'t add yourself as a contact dumbass', success: undefined});
                     return;
                 }
@@ -65,13 +65,23 @@ class SideBar extends Component {
                 this.setState({success: 'Contact successfully added'});
             } else {
                 this.setState({error: 'User not found, please verify the ID entered', success: undefined});
-                return;
             }
         }.bind(this))
         .catch(function(reason) {
             this.setState({error: reason, success: undefined});
-            return;
         }.bind(this));
+    }
+
+    searchContact() {
+        document.querySelectorAll(".contact").forEach(element => {
+            const name = element.querySelector(".contact__name").innerHTML;
+
+            if (name.toLowerCase().includes(this.searchBar.current.value.toLowerCase())) {
+                element.classList.remove("contact-hide");
+            } else {
+                element.classList.add("contact-hide");
+            }
+        })
     }
 
 	render() {
@@ -83,7 +93,7 @@ class SideBar extends Component {
                             <Link to="/"><ArrowBack /></Link>
                             <p>New contact</p>
                             <div className="sidebar__header-options">
-                                <a onClick={this.disconnect}><ExitToApp /></a>
+                                <button onClick={this.disconnect}><ExitToApp /></button>
                             </div>
                         </div>
                         <form className="sidebar__content" style={{padding: '0 2rem'}} onSubmit={this.newContact}>
@@ -94,11 +104,11 @@ class SideBar extends Component {
                             {this.state.success ? (<Alert severity="success">{this.state.success}</Alert>) : null}
                             <div className="sidebar__content-input">
                                 <Face />
-                                <input ref={this.newContactName} type="text" placeholder="Contact name" required></input>
+                                <input ref={this.newContactName} type="text" placeholder="Contact name" required />
                             </div>
                             <div className="sidebar__content-input">
                                 <Dialpad />
-                                <input ref={this.newContactID} type="text" placeholder="XXXXXX" required></input>
+                                <input ref={this.newContactID} type="text" placeholder="XXXXXX" required />
                             </div>
                             <button className="sidebar__content-option" type="submit">
                                 <Save />
@@ -109,17 +119,16 @@ class SideBar extends Component {
                         <div className="sidebar__header">
                             <Avatar />
                             <div className="sidebar__header-options">
-                                <a onClick={this.disconnect}><ExitToApp /></a>
+                                <button onClick={this.disconnect}><ExitToApp /></button>
                             </div>
                         </div>
                         <div className="sidebar__search">
                             <div className="sidebar__search-entry">
-                                <input type="text" placeholder="Search a chat"></input>
-                                <button><SearchRoundedIcon /></button>
+                                <input onChange={this.searchContact} ref={this.searchBar} type="text" placeholder="Search a chat" />
                             </div>
                         </div>
                         <div className="sidebar__content">
-                            <ContactList contacts={this.state.contacts} />
+                            {this.state.contacts.map(contact => <Contact name={contact.name} uid={contact.user.id} key={contact.user.id}/>)}
                             <Link className="sidebar__content-option" to="/new">
                                 <Add />
                             </Link>

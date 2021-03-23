@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './Root.scss';
 import SideBar from 'components/SideBar';
-import Main from 'components/Main';
+import Conversation from 'components/Conversation';
+import {Route} from "react-router";
 
 class Root extends Component {
     render() {
         return (
             <div className="root">
                 <SideBar />
-                <Main />
+                <Route path="/contacts/:uid" component={Conversation} />
             </div>
         );
     }
