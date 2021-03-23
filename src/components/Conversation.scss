@@ -1,12 +1,11 @@
-.main {
+.conversation {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #F9F9F9;
 }
 
-.main__header {
+.conversation__header {
     display: inline-flex;
     align-items: center;
     padding: 1rem;
@@ -14,25 +13,60 @@
     color: gray;
 }
 
-.main__header-title {
+.conversation__header-title {
     font-size: 1.5rem;
     margin: 0 0 0 1rem;
     color: black;
 }
 
-.main__chat {
-    height: 100%;
-    background: url("~images/patterns/email-pattern.png");
-    overflow-y: scroll;
+.conversation__header-back {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: black;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
-.main__chat-message {
+.conversation__chat {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+@keyframes appearFromRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes appearFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0%);
+    }
+}
+
+.conversation__chat-message {
     position: relative;
     display: flex;
     flex-direction: row;
     padding: 1rem;
+    animation: appearFromLeft 0.2s;
 
     &.me {
+        animation: appearFromRight 0.2s;
         flex-direction: row-reverse;
 
         .main__chat-messageContent {
@@ -40,24 +74,36 @@
         }
     }
 
-    .main__chat-messageContent {
-        max-width: 50%;
-        padding: 0.8rem;
-        margin: 0 1rem;
-        border-radius: 8px;
-        background-color: #89FBAB;
-    }
-
-    .main__chat-messageTime {
-        color: #e9e8e8;
-    }
-
     p {
         margin: 0;
     }
 }
 
-.main__footer {
+.conversation__chat-messageContent {
+    position: relative;
+    max-width: 50%;
+    min-width: 10%;
+    padding: 0.8rem 0.8rem 0.8rem 0.8rem;
+    margin: 0 1rem;
+    border-radius: 8px;
+    background-color: #89FBAB;
+
+    p {
+        word-break: break-all;
+    }
+}
+
+.conversation__chat-messageFooter {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.conversation__chat-messageTime {
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.conversation__footer {
     display: inline-flex;
     background-color: #F3F3F3;
     padding: 1rem;
@@ -74,7 +120,7 @@
     }
 }
 
-.main__footer-entry {
+.conversation__footer-entry {
     display: inline-flex;
     width: 100%;
     padding: 0.5rem 1rem;

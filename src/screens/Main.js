@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import './Root.scss';
+import './Main.scss';
 import SideBar from 'components/SideBar';
 import Conversation from 'components/Conversation';
 import {Route} from "react-router";
 
-class Root extends Component {
+class Main extends Component {
     render() {
         return (
-            <div className="root">
+            <div className="main">
                 <SideBar />
-                <Route path="/contacts/:uid" component={Conversation} />
+                <div className="main__content">
+                    <Route path="/contacts/:uid" component={Conversation} />
+                </div>
             </div>
         );
     }
 }
 
-export default Root;
+export default Main;

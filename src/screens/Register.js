@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Register.scss';
 import { Alert } from '@material-ui/lab';
-import { AlternateEmail, Lock, WhatsApp, Face } from '@material-ui/icons';
+import { AlternateEmail, Lock, WhatsApp } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import firebase, { firestore } from 'services/firebase';
 
@@ -10,7 +10,6 @@ class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.usernameInput = React.createRef();
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
         this.confirmPasswordInput = React.createRef();
@@ -28,26 +27,19 @@ class Register extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        const usernameInput = this.usernameInput.current;
-        const emailInput = this.emailInput.current;
-        const passwordInput = this.passwordInput.current;
-        const confirmPasswordInput = this.confirmPasswordInput.current;
-        
-        if (passwordInput.value != confirmPasswordInput.value) { 
+        if (this.passwordInput.current.value !== this.confirmPasswordInput.current.value) {
             this.setState({error: 'The passwords mismatch'})
             return;
-        } // Confirm password incorrect
+        }
         
-        firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+        firebase.auth().createUserWithEmailAndPassword(this.emailInput.current.value, this.passwordInput.current.value)
         .then(function() {
             this.setState({success: 'You have signed up successfully'});
 
             firestore.collection('users').doc(firebase.auth().currentUser.uid).set({
-                username: usernameInput.value,
                 id: this.generateID(),
-                email: emailInput.value
+                email: this.emailInput.current.value
             });
-            console.log("no errors");
         }.bind(this))
         .catch(function(error) {
             this.setState({error: error.message});
@@ -61,10 +53,6 @@ class Register extends Component {
                     <WhatsApp className="register__form-logo"/>
                     {this.state.error ? (<Alert severity="error">{this.state.error}</Alert>) : null}
                     {this.state.success ? (<Alert severity="success">{this.state.success}</Alert>) : null}
-                    <div className="register__form-input">
-                        <Face />
-                        <input ref={this.usernameInput} type="text" placeholder="Username" required></input>
-                    </div>
                     <div className="register__form-input">
                         <AlternateEmail />
                         <input ref={this.emailInput} type="email" placeholder="Email" required></input>

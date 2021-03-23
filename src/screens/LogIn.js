@@ -11,6 +11,7 @@ class LogIn extends Component {
 
     constructor(props) {
         super(props);
+
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
 
