@@ -1,5 +1,5 @@
 # WHAT'S APP CLONE
-A communication tool such as What's APP in ReactJS on web.
+A communication tool such as What's App with ReactJS and Firebase on web.
 [Preview](https://suiramdev.github.io/whatsapp_clone)
 
 ## Built With
@@ -15,24 +15,24 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ```json
 {
     "users": {
-        "userID": {
+        uid: {
             "email": "",
-            "username": ""
+            "id": XXXXXX
         }
     },
 
     "conversations": {
-        "conversationID": {
-            "users": {
-                "1": "referenceUser"
+        uid: {
+            "participants": {
+                uid,
+                ...
             },
             "messages": {
-                "1": {
-                    "sender": "referenceUser",
-                    "text": "Hello world !",
-                    "time": "timestamp"
+                {
+                    "from": uid,
+                    "content": "",
+                    "date": XXXXXXX
                 }
             }
         }
     }
-}```
