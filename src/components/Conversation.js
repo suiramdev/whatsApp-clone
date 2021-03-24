@@ -6,6 +6,7 @@ import SentimentVerySatisfiedRoundedIcon from '@material-ui/icons/SentimentVeryS
 import firebase, {firestore} from "../services/firebase";
 import {useHistory} from "react-router";
 import {ArrowBack} from "@material-ui/icons";
+import {getConversationByUsers, sendMessage} from "../services/api";
 
 class Conversation extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class Conversation extends Component {
             conversation: []
         }
 
-        this.sendMessage = this.sendMessage.bind(this);
+        this.sendMessageHandler = this.sendMessageHandler.bind(this);
+        this.messageHandler = this.messageHandler.bind(this);
     }
 
     componentDidMount() {
@@ -33,35 +35,47 @@ class Conversation extends Component {
                 })
 
                 if (contact) {
-                    this.setState({contact: contact});
+                    this.setState({contact: contact.data()});
                 } else {
                     this.props.history.goBack();
                 }
             }.bind(this));
 
-        // Get conversation and retrieve changes
-        firestore.collection("conversations")
-            .where("participants", "array-contains-any", [firebase.auth().currentUser.uid, this.props.match.params.uid])
-            .onSnapshot(function(querySnapshot) {
-                this.setState({
-                    conversationId: querySnapshot.docs[0].id,
-                    conversation: querySnapshot.docs[0].data()
-                });
-                this.chatBox.current.scrollTo(0, this.chatBox.current.scrollHeight);
-            }.bind(this));
+        // Set the message handler
+        getConversationByUsers([firebase.auth().currentUser.uid, this.props.match.params.uid])
+            .onSnapshot((querySnapshot) => this.messageHandler(querySnapshot));
     }
 
-    sendMessage(event) {
+    async messageHandler(querySnapshot) {
+        let document = querySnapshot.docs[0];
+        if (!document) {
+            document = await firestore.collection("conversations").doc();
+            document.set({
+                messages: [],
+                participants: [
+                    firebase.auth().currentUser.uid,
+                    this.props.match.params.uid
+                ]
+            });
+        }
+
+        this.setState({
+            conversationId: document.id,
+            conversation: document.data()
+        });
+
+        if (this.chatBox.current) {
+            this.chatBox.current.scrollTo(0, this.chatBox.current.scrollHeight);
+        }
+    }
+
+    sendMessageHandler(event) {
         event.preventDefault();
 
-        if (this.message.current.value === "") return;
+        const messageContent = this.message.current.value;
+        if (messageContent === "") return;
 
-        this.state.conversation.messages.push({
-            content: this.message.current.value,
-            from: firebase.auth().currentUser.uid,
-            date: Date.now()
-        });
-        firestore.collection("conversations").doc(this.state.conversationId).set(this.state.conversation);
+        sendMessage(this.state.conversationId, firebase.auth().currentUser.uid, messageContent, Date.now());
     }
 
     render() {
@@ -85,7 +99,7 @@ class Conversation extends Component {
                         </div>
                     ))}
                 </div>
-                <form className="conversation__footer" onSubmit={this.sendMessage}>
+                <form className="conversation__footer" onSubmit={this.sendMessageHandler}>
                     <div className="conversation__footer-entry">
                         <input ref={this.message} type="text" placeholder="Type your message" />
                     </div>

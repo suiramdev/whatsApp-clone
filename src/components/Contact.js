@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 import 'components/Contact.scss';
 import { Avatar } from '@material-ui/core';
 import {useHistory} from "react-router";
+import {firestore} from "services/firebase";
 
 class Contact extends Component {
     constructor(props) {
         super(props);
 
         this.select = this.select.bind(this);
+
+        this.state = {
+            user: []
+        }
+    }
+
+    componentDidMount() {
+        firestore.collection("users").doc(this.props.uid).get()
+            .then(function(document) {
+                this.setState({
+                    user: document.data()
+                })
+            }.bind(this));
     }
 
     select() {
@@ -20,9 +34,8 @@ class Contact extends Component {
                 <Avatar/>
                 <div style={{marginLeft: 0.5+"rem"}}>
                     <h1 className="contact__name">{this.props.name || "New contact"}</h1>
-                    <p className="contact__description">The last message sent goes here</p>
+                    <p className="contact__info">{this.state.user.id}</p>
                 </div>
-                <p className="contact__time">12:00:50</p>
             </button>
         );
     }
